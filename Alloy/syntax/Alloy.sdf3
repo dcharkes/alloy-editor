@@ -29,13 +29,13 @@ context-free syntax
 	RefList.RefList = <[<{Ref ","}+>]>
 
 	Paragraph.FactDecl = <
-		fact <Name> {
+		fact <Name?> {
 			<{Expr "\n"}*>
 		}
 	>
 	
 	Paragraph.AssertDecl = <
-		assert <Name> {
+		assert <Name?> {
 			<{Expr "\n"}*>
 		}
 	>
