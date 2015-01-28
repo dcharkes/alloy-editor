@@ -1,11 +1,10 @@
-// Grammar for the Alloy language
-// By default, based on an example "entity language" syntax
-
 module Alloy
+
 
 imports 
 
 	Common
+	Keywords
 
 context-free start-symbols
 
@@ -14,18 +13,262 @@ context-free start-symbols
 context-free syntax
 
 	Start.Module = <
-		module <ID> 
+		module <Name> <ModuleParams?>
 		
-		<{Definition "\n\n"}*>
+		<{Import "\n"}*>
+		
+		<{Paragraph "\n\n"}*>
 	>
+	
+	ModuleParams.ModuleParams = <[ <{ModuleParam ","}*> ]>
+	ModuleParam.ModuleParam = <<Exactly?> <Ref>>
 
-	Definition.Entity = <
-		entity <ID> {
-			<{Property "\n"}*>
+	
+	Import.Import = <<Private?>open <Name> <RefList?> <As?>>
+	As.As = <as <Name>>
+	RefList.RefList = <[<{Ref ","}+>]>
+
+	Paragraph.FactDecl = <
+		fact <Name> {
+			<{Expr "\n"}*>
 		}
 	>
-  	
-	Property.Property = <<ID> : <Type>>
 	
-	Type.Type = <<ID>>
+	Paragraph.AssertDecl = <
+		assert <Name> {
+			<{Expr "\n"}*>
+		}
+	>
+	
+	Paragraph.FunDecl = <
+		<Private?>fun <RefDot?><Name> <FunParams?> : <Expr> {
+			<{Expr "\n"}*>
+		}
+	>
+	
+	Paragraph.PredDecl = <
+		<Private?>pred <RefDot?><Name> <FunParams?> {
+			<{Expr "\n"}*>
+		}
+	>
+	
+	Paragraph.RunDecl = <
+		<NameColon?> run <NameOrBlock> <Scope>
+	>
+	
+	Paragraph.CheckDecl = <
+		<NameColon?> check <NameOrBlock> <Scope>
+	>
+	
+	Paragraph.SigDecl = <
+		<{SigQual ""}*> sig <{Name ","}*> <SigExt?> {
+			<{Decl ","}*>
+		} <Block?>
+	>
+	
+	Paragraph.EnumDecl = <
+		enum <Name> {
+			<{Name ","}*>
+		}
+	>
+	
+	NameColon = <<Name> :>
+	
+	SigQual.Abstract = <abstract >
+	SigQual.Lone     = <lone >
+	SigQual.One      = <one >
+	SigQual.Some     = <some >
+	SigQual.Private  = <private >
+	
+	SigExt.Extends = <extends <Ref>>
+	SigExt.In      = <in <{Ref "+"}*>>
+	
+	Scope.Scope = <for <INT> <Expect?>>
+	Scope.Scope = <for <INT> but <{TypeScope ","}+> <Expect?>>
+	Scope.Scope = <for <{TypeScope ","}+> <Expect?>>
+	Scope.Scope = <<Expect?>>
+	
+	TypeScope.TypeScope = <<Exactly?> <INT> <NameIntOrSeq>>
+	
+	NameIntOrSeq = Name
+	NameIntOrSeq.Int = <int>
+	NameIntOrSeq.Seq = <seq>
+	
+	Expect.Expect = <expect <INT>>
+	
+	NameOrBlock = Name
+	NameOrBlock = Block
+	
+	FunParams = <(<{FunParam ","}*>)>
+	FunParams = <[<{FunParam ","}*>]>
+	FunParam.FunParam = Decl
+	
+	RefDot.RefDot = <<Ref>.>
+	
+	Expr.Let        = <let <{LetDecl ","}+> <BlockOrBar>>
+	Expr.Quant      = <<Quantifier> <{Decl ","}+> <BlockOrBar>>
+	Expr.Not        = <!<Expr>>
+	Expr.Not        = <not <Expr>>
+	Expr.No         = <no <Expr>>
+	Expr.Some       = <some <Expr>>
+	Expr.Lone       = <lone <Expr>>
+	Expr.One        = <one <Expr>>
+	Expr.Set        = <set <Expr>>
+	Expr.Seq        = <seq <Expr>>
+	Expr.Card       = <#<Expr>>
+	Expr.Transpose  = <~<Expr>>
+	Expr.ReflTrans  = <*<Expr>>
+	Expr.Transitive = <^<Expr>>
+	Expr.Or         = <<Expr> || <Expr>>                  {left}
+	Expr.Or         = <<Expr> or <Expr>>                  {left}
+	Expr.And        = <<Expr> && <Expr>>                  {left}
+	Expr.And        = <<Expr> and <Expr>>                 {left}
+	Expr.Intersect  = <<Expr> & <Expr>>                   {left}
+	Expr.Iff        = [[Expr] <=> [Expr]]                 {left}
+	Expr.Iff        = <<Expr> iff <Expr>>                 {left}
+	Expr.Implies    = [[Expr] => [Expr]]                  {right}
+	Expr.Implies    = <<Expr> implies <Expr>>             {right}
+	Expr.Union      = <<Expr> + <Expr>>                   {left}
+	Expr.Difference = <<Expr> - <Expr>>                   {left}
+	Expr.Override   = <<Expr> ++ <Expr>>                  {left}
+	Expr.DomainRestr= [[Expr] <: [Expr]]                  {left}
+	Expr.RangeRestr = [[Expr] :> [Expr]]                  {left}
+	Expr.Join       = <<Expr> . <Expr>>                   {left}
+	Expr.X          = [[Expr] << [Expr]]                  {left}
+	Expr.Y          = [[Expr] >> [Expr]]                  {left}
+	Expr.Z          = [[Expr] >>> [Expr]]                 {left}
+	Expr.Arrow      = [[Expr] [Mult?]-> [Mult?][Expr]]    {right}
+	Expr.Equals     = <<Expr> <Not?>= <Expr>>             {left}
+	Expr.In         = <<Expr> <Not?>in <Expr>>            {left}
+	Expr.Lt         = [[Expr] [Not?]> [Expr]]             {left}
+	Expr.Gt         = [[Expr] [Not?]< [Expr]]             {left}
+	Expr.Lte        = [[Expr] [Not?]=< [Expr]]            {left}
+	Expr.Gte        = [[Expr] [Not?]?= [Expr]]            {left}
+	Expr.ImpliesElse= [[Expr] => [Expr] else [Expr]]      {right}
+	Expr.ImpliesElse= [[Expr] implies [Expr] else [Expr]] {right}
+	Expr.BoxJoin    = <<Expr> [<{Expr ","}*>]>            {left}
+	Expr.Int        = <<INT>>
+	Expr.None       = <none>
+	Expr.Iden       = <iden>
+	Expr.Univ       = <univ>
+	Expr.Int        = <Int>
+	Expr.seqInt     = <seq/Int>
+	Expr            = <(<Expr>)> {bracket}
+	Expr            = <<Name>>
+	Expr            = <@<Name>>
+	Expr            = Block
+	Expr.SetCompr   = <{ <{Decl ","}+> <BlockOrBar> }>
 
+	Decl.Decl = <<Private?><Disj?><{Name ","}+> : <Disj?><Expr>>
+
+	LetDecl.LetDecl = <<Name> = <Expr>>
+
+	Not.Not = <!>
+	Not.Not = <not>
+
+	Mult.Some = <some >
+	Mult.One  = <one >
+	Mult.Lone = <lone >
+	Mult.Set  = <set >
+
+	Quantifier.All  = <all>
+	Quantifier.No   = <no>
+	Quantifier.Some = <some>
+	Quantifier.Lone = <lone>
+	Quantifier.One  = <one>
+	Quantifier.Sum  = <sum>
+
+	Block.Block = <{ <{Expr "\n"}*> }>
+
+	BlockOrBar = Block
+	BlockOrBar.Bar = <| <Expr>>
+
+	Name.Name = <<Name>/<ID>>
+	Name = NameStart
+	NameStart.This = <this>
+	NameStart.Name = <<ID>>
+	
+	Ref = Name
+	Ref.Univ = <univ>
+	Ref.Int = <Int>
+	Ref.SeqInt = <seq/Int>
+
+	Exactly.Exactly = <exactly >
+	Private.Private = <private >
+	Disj.Disj       = <disj >
+	
+context-free priorities
+
+	{
+		Expr.Transpose
+		Expr.ReflTrans
+		Expr.Transitive
+	} >
+	{
+		Expr.Join
+	} >
+	{
+		Expr.BoxJoin
+	} >
+	{	
+		Expr.RangeRestr
+	} >
+	{
+		Expr.DomainRestr
+	} >
+	{
+		Expr.Arrow
+	} >
+	{
+		Expr.Intersect
+	} >
+	{
+		Expr.Override
+	} >
+	{
+		Expr.Card
+	} >
+	{ left:
+		Expr.Union
+		Expr.Difference
+	} >
+	{ left:
+		Expr.X
+		Expr.Y
+		Expr.Z
+	} >
+	{
+		Expr.No
+		Expr.Some
+		Expr.Lone
+		Expr.One
+		Expr.Set
+		Expr.Seq
+	} >
+	{ left:
+		Expr.In
+		Expr.Equals
+		Expr.Lt
+		Expr.Gt
+		Expr.Lte
+		Expr.Gte
+	} >
+	{
+		Expr.Not
+	} >
+	{
+		Expr.And
+	} >
+	{
+		Expr.Implies
+	} >
+	{
+		Expr.Iff
+	} >
+	{
+		Expr.Or
+	} >
+	{
+		Expr.Let
+		Expr.Quant
+	}

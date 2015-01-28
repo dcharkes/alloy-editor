@@ -1,0 +1,13 @@
+module Keywords
+
+lexical syntax // IDs
+
+  ID = Keyword {reject}  
+
+lexical syntax // Keywords
+
+	Keyword = "no"
+
+lexical restrictions
+
+	Keyword -/- [a-zA-Z0-9\_]
