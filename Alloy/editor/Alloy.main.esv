@@ -1,0 +1,33 @@
+module Alloy.main
+
+imports
+  Alloy-Colorer
+  Alloy-Completions
+  Alloy-Folding
+  Alloy-Menus
+  Alloy-Refactorings
+  Alloy-References
+  Alloy-Syntax
+  Alloy-Views
+
+language General properties
+  
+  name:          Alloy
+  id:            Alloy
+  extends:       Root
+  
+  description:   "Spoofax-generated editor for the Alloy language"
+  url:           http://strategoxt.org
+  
+  extensions:    als
+  table:         include/Alloy.tbl
+  start symbols: Start
+  
+  provider:      include/alloy.ctree
+  provider:      include/alloy-java.jar
+  
+  observer:      editor-analyze (multifile)
+  
+  on save:       editor-save
+  
+  jvm opts:      -server -Xss8m -Xmx1024m

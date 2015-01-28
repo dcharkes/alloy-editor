@@ -1,0 +1,13 @@
+module editor/Alloy-Outliner
+
+imports
+  
+  include/Alloy
+  lib/runtime/editor/outline-library
+  lib/runtime/editor/origins
+  editor/Alloy-Outliner.generated
+
+rules
+  
+  to-outline-label = fail
+  

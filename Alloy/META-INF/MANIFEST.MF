@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: Alloy;singleton:=true
+Export-Package: Alloy
+Bundle-Name: Alloy Plug-in
+Bundle-Version: 1.0.0.qualifier
+Require-Bundle: org.eclipse.ui,org.eclipse.core.runtime,org.eclipse.im
+ p.runtime,org.spoofax.interpreter.core,org.spoofax.interpreter.extern
+ aldeps,org.strategoxt.strj,org.eclipse.jface.text,org.spoofax.terms,o
+ rg.eclipse.core.resources,org.spoofax.jsglr,org.strategoxt.imp.runtim
+ e
+Bundle-ManifestVersion: 2
+Bundle-Activator: Alloy.Activator
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Bundle-ActivationPolicy: lazy
+
