@@ -120,14 +120,14 @@ context-free syntax
 	Expr.ReflTrans  = <*<Expr>>
 	Expr.Transitive = <^<Expr>>
 	Expr.Or         = <<Expr> || <Expr>>                  {left}
-	Expr.Or         = <<Expr> or <Expr>>                  {left}
+	Expr.Or2        = <<Expr> or <Expr>>                  {left}
 	Expr.And        = <<Expr> && <Expr>>                  {left}
-	Expr.And        = <<Expr> and <Expr>>                 {left}
+	Expr.And2       = <<Expr> and <Expr>>                 {left}
 	Expr.Intersect  = <<Expr> & <Expr>>                   {left}
 	Expr.Iff        = [[Expr] <=> [Expr]]                 {left}
-	Expr.Iff        = <<Expr> iff <Expr>>                 {left}
+	Expr.Iff2       = <<Expr> iff <Expr>>                 {left}
 	Expr.Implies    = [[Expr] => [Expr]]                  {right}
-	Expr.Implies    = <<Expr> implies <Expr>>             {right}
+	Expr.Implies2   = <<Expr> implies <Expr>>             {right}
 	Expr.Union      = <<Expr> + <Expr>>                   {left}
 	Expr.Difference = <<Expr> - <Expr>>                   {left}
 	Expr.Override   = <<Expr> ++ <Expr>>                  {left}
@@ -145,7 +145,7 @@ context-free syntax
 	Expr.Lte        = [[Expr] [Not?]=< [Expr]]            {left}
 	Expr.Gte        = [[Expr] [Not?]?= [Expr]]            {left}
 	Expr.ImpliesElse= [[Expr] => [Expr] else [Expr]]      {right}
-	Expr.ImpliesElse= [[Expr] implies [Expr] else [Expr]] {right}
+	Expr.ImpliesElse2= [[Expr] implies [Expr] else [Expr]] {right}
 	Expr.BoxJoin    = <<Expr> [<{Expr ","}*>]>            {left}
 	Expr.Int        = <<INT>>
 	Expr.None       = <none>
@@ -256,19 +256,25 @@ context-free priorities
 	{
 		Expr.Not
 	} >
-	{
+	{ left:
 		Expr.And
+		Expr.And2
 	} >
-	{
+	{ right:
 		Expr.Implies
+		Expr.Implies2
+		Expr.ImpliesElse
+		Expr.ImpliesElse2
 	} >
-	{
+	{ left:
 		Expr.Iff
+		Expr.Iff2
 	} >
-	{
+	{ left:
 		Expr.Or
+		Expr.Or2
 	} >
-	{
+	{ left:
 		Expr.Let
 		Expr.Quant
 	}

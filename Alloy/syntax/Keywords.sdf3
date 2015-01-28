@@ -1,5 +1,51 @@
 module Keywords
 
+lexical syntax // IDs
+
+  ID = Keyword {reject}  
+
+lexical syntax // Keywords
+
+	Keyword = "abstract"
+	Keyword = "all"
+	Keyword = "and"
+	Keyword = "as"
+	Keyword = "assert"
+	Keyword = "but"
+	Keyword = "check"
+	Keyword = "disj"
+	Keyword = "else"
+	Keyword = "enum"
+	Keyword = "exactly"
+	Keyword = "expect"
+	Keyword = "fact"
+	Keyword = "for"
+	Keyword = "fun"
+	Keyword = "iden"
+	Keyword = "iff"
+	Keyword = "implies"
+	Keyword = "in"
+	Keyword = "int"
+	Keyword = "Int"
+	Keyword = "lone"
+	Keyword = "module"
+	Keyword = "no"
+	Keyword = "none"
+	Keyword = "not"
+	Keyword = "one"
+	Keyword = "open"
+	Keyword = "pred"
+	Keyword = "private"
+	Keyword = "run"
+	Keyword = "seq"
+	Keyword = "seq/Int"
+	Keyword = "set"
+	Keyword = "sig"
+	Keyword = "some"
+	Keyword = "sum"
+	Keyword = "this"
+	Keyword = "univ"
+
 lexical restrictions
 
 	"abstract" -/- [a-zA-Z0-9\_]
