@@ -17,7 +17,6 @@ imports
 	lib/runtime/editor/-
 	names
 	check
-	generate
 	pp
 
 rules // Analysis
