@@ -1,13 +1,44 @@
 module Keywords
 
-lexical syntax // IDs
-
-  ID = Keyword {reject}  
-
-lexical syntax // Keywords
-
-	Keyword = "no"
-
 lexical restrictions
 
-	Keyword -/- [a-zA-Z0-9\_]
+	"abstract" -/- [a-zA-Z0-9\_]
+	"all" -/- [a-zA-Z0-9\_]
+	"and" -/- [a-zA-Z0-9\_]
+	"as" -/- [a-zA-Z0-9\_]
+	"assert" -/- [a-zA-Z0-9\_]
+	"but" -/- [a-zA-Z0-9\_]
+	"check" -/- [a-zA-Z0-9\_]
+	"disj" -/- [a-zA-Z0-9\_]
+	"else" -/- [a-zA-Z0-9\_]
+	"enum" -/- [a-zA-Z0-9\_]
+	"exactly" -/- [a-zA-Z0-9\_]
+	"expect" -/- [a-zA-Z0-9\_]
+	"fact" -/- [a-zA-Z0-9\_]
+	"for" -/- [a-zA-Z0-9\_]
+	"fun" -/- [a-zA-Z0-9\_]
+	"iden" -/- [a-zA-Z0-9\_]
+	"iff" -/- [a-zA-Z0-9\_]
+	"implies" -/- [a-zA-Z0-9\_]
+	"in" -/- [a-zA-Z0-9\_]
+	"int" -/- [a-zA-Z0-9\_]
+	"Int" -/- [a-zA-Z0-9\_]
+	"lone" -/- [a-zA-Z0-9\_]
+	"module" -/- [a-zA-Z0-9\_]
+	"no" -/- [a-zA-Z0-9\_]
+	"none" -/- [a-zA-Z0-9\_]
+	"not" -/- [a-zA-Z0-9\_]
+	"one" -/- [a-zA-Z0-9\_]
+	"open" -/- [a-zA-Z0-9\_]
+	"pred" -/- [a-zA-Z0-9\_]
+	"private" -/- [a-zA-Z0-9\_]
+	"run" -/- [a-zA-Z0-9\_]
+	"seq" -/- [a-zA-Z0-9\_]
+	"seq/Int" -/- [a-zA-Z0-9\_]
+	"set" -/- [a-zA-Z0-9\_]
+	"sig" -/- [a-zA-Z0-9\_]
+	"some" -/- [a-zA-Z0-9\_]
+	"sum" -/- [a-zA-Z0-9\_]
+	"this" -/- [a-zA-Z0-9\_]
+	"univ" -/- [a-zA-Z0-9\_]
+
