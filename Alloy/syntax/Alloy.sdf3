@@ -80,10 +80,10 @@ context-free syntax
 	SigQual.Some     = <some >
 	SigQual.Private  = <private >
 	
-	SigExt.Extends = <extends <Ref>>
-	SigExt.In      = <in <RefUnion>>
-	RefUnion.Union = <<RefUnion> + <RefUnion>>
-	RefUnion       = Ref
+	SigExt.Extends    = <extends <Ref>>
+	SigExt.In         = <in <RefUnion>>
+	RefUnion.RefUnion = <<RefUnion> + <RefUnion>>
+	RefUnion          = Ref
 	
 	Scope.Scope = <for <INT> <Expect?>>
 	Scope.Scope = <for <INT> but <{TypeScope ","}+> <Expect?>>
@@ -156,8 +156,8 @@ context-free syntax
 	Expr.Int        = <Int>
 	Expr.seqInt     = <seq/Int>
 	Expr            = <(<Expr>)> {bracket}
-	Expr            = <<Name>>
-	Expr            = <@<Name>>
+	Expr.Ref        = <<Name>>
+	Expr.Ref        = <@<Name>>
 	Expr            = Block
 	Expr.SetCompr   = <{ <{Decl ","}+> <BlockOrBar> }>
 

@@ -19,7 +19,7 @@ rules
 rules // sig A,B{} -> sig A{} sig B{}
 	
 	// @type Module -> Module
-	module-sig-names-to-sigs-name = Module(id,id,id,map(sig-names-to-sigs-name);flatten-list)
+	module-sig-names-to-sigs-name = Module(id,id,id,map(sig-names-to-sigs-name <+ ?a;![a]);flatten-list)
 	
 	// @type SigDecl -> [SigDecl]
 	sig-names-to-sigs-name: sig@SigDecl(a, name*, b, c, d) -> s*

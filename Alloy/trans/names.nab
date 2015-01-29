@@ -8,6 +8,7 @@ namespaces
 	
 	Module
 	Signature
+	Field
 	
 binding rules
 
@@ -15,10 +16,12 @@ binding rules
 		defines Module m
 		scopes Signature
 
-	SigDecl(a, [s], None(),           c, d): defines Signature s of type s
-	SigDecl(a, [s], Some(Extends(e)), c, d): defines Signature s of type s
-	SigDecl(a, [s], Some(In(i)),      c, d): defines Signature s of type i-ty where i has type i-ty
+	SigDecl(a, [s], None(),           c, d): defines Signature s of type s                          scopes Field
+	SigDecl(a, [s], Some(Extends(e)), c, d): defines Signature s of type s                          scopes Field
+	SigDecl(a, [s], Some(In(i)),      c, d): defines Signature s of type i-ty where i has type i-ty scopes Field
 
+	Decl(a, b, [f], c, e):                   defines Field     f of type e-ty where e has type e-ty
+	
 binding rules
 
 	Ref(e):

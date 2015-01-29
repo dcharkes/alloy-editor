@@ -5,15 +5,18 @@ imports
 	libstratego-gpp
 	lib/runtime/refactoring/-
 	src-gen/pp/Alloy-pp
+	include/Alloy-parenthesize
 
 rules
 	
   pp-Alloy-string =
+  	parenthesize-Alloy;
     prettyprint-SDF-start-symbols
     ; !V([], <id>)
     ; box2text-string(|120)
       
   pp-partial-Alloy-string =
+  	parenthesize-Alloy;
     prettyprint-example
     ; !V([], <id>)
     ; box2text-string(|120)
