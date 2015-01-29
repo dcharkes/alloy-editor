@@ -183,10 +183,11 @@ context-free syntax
 	BlockOrBar = Block
 	BlockOrBar.Bar = <| <Expr>>
 
-	Name.Name = <<Name>/<ID>>
-	Name = NameStart
-	NameStart.This = <this>
-	NameStart.Name = <<ID>>
+	// Name.Name = <<Name>/<ID>>
+	// Name = NameStart
+	// NameStart.This = <this>
+	// NameStart.Name = <<ID>>
+	Name = NAME
 	
 	Ref = Name
 	Ref.Univ = <univ>
@@ -196,6 +197,10 @@ context-free syntax
 	Exactly.Exactly = <exactly >
 	Private.Private = <private >
 	Disj.Disj       = <disj >
+
+lexical syntax
+
+	NAME = ("this" | ID) ("/" ID)*
 	
 context-free priorities
 
