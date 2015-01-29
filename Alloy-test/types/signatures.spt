@@ -1,0 +1,21 @@
+module types-signatures
+
+language Alloy
+
+setup Common [[
+	module test
+]]
+
+test Signature has its own type [[
+	sig [[A]] {}
+]]  run get-type to "A"{_}
+
+test Signature reference has correct type [[
+	sig A {}
+	sig B extends [[A]] {}
+]]  run get-type to "A"{_}
+
+test Signature in another has the type of other [[
+	sig A {}
+	sig [[B]] in A {}
+]]  run get-type to "A"{_}

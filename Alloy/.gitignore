@@ -24,7 +24,6 @@ utils
 ./lib/*.generated.str
 /include
 src-gen
-lib
 target
 trans/names.str
 trans/types.generated.str

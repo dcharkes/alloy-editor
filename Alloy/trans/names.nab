@@ -6,7 +6,20 @@ imports
 	
 namespaces
 	
+	Module
+	Signature
 	
 binding rules
 
+	Module(m,b,c,d):
+		defines Module m
+		scopes Signature
 
+	SigDecl(a, [s], None(),           c, d): defines Signature s of type s
+	SigDecl(a, [s], Some(Extends(e)), c, d): defines Signature s of type s
+	SigDecl(a, [s], Some(In(i)),      c, d): defines Signature s of type i-ty where i has type i-ty
+
+binding rules
+
+	Ref(e):
+		refers to Signature e

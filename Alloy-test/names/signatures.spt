@@ -1,0 +1,34 @@
+module names-signatures
+
+language Alloy
+
+setup Common [[
+	module test
+]]
+
+test Duplicate signature error [[
+	sig [[A]] {}
+	sig [[A]] {}
+]] 2 errors
+
+test Duplicate signature error in single sig [[
+	sig [[A]], [[A]] {}
+]] 2 errors
+
+test Extends resolves to signatures [[
+	sig [[A]] {}
+	sig B extends [[A]]{}
+]] resolve #2 to #1
+
+test Unresolved extends signature error [[
+	sig B extends [[A]]{}
+]] 1 error
+
+test In resolves to signatures [[
+	sig [[A]] {}
+	sig B in [[A]]{}
+]] resolve #2 to #1
+
+test Unresolved in signature error [[
+	sig B in [[A]]{}
+]] 1 error

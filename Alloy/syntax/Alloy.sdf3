@@ -81,7 +81,9 @@ context-free syntax
 	SigQual.Private  = <private >
 	
 	SigExt.Extends = <extends <Ref>>
-	SigExt.In      = <in <{Ref "+"}*>>
+	SigExt.In      = <in <RefUnion>>
+	RefUnion.Union = <<RefUnion> + <RefUnion>>
+	RefUnion       = Ref
 	
 	Scope.Scope = <for <INT> <Expect?>>
 	Scope.Scope = <for <INT> but <{TypeScope ","}+> <Expect?>>
@@ -189,7 +191,7 @@ context-free syntax
 	// NameStart.Name = <<ID>>
 	Name = NAME
 	
-	Ref = Name
+	Ref.Ref = Name
 	Ref.Univ = <univ>
 	Ref.Int = <Int>
 	Ref.SeqInt = <seq/Int>

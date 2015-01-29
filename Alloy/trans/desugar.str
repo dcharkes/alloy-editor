@@ -1,0 +1,35 @@
+module trans/desugar
+
+imports // signatures
+	
+	src-gen/signatures/Alloy-sig
+	
+imports // functions
+	
+	trans/lib/origin	
+	
+rules
+	
+	desugar-before-analysis = 
+		module-sig-names-to-sigs-name
+	
+	desugar-after-analysis = 
+		id
+
+rules // sig A,B{} -> sig A{} sig B{}
+	
+	// @type Module -> Module
+	module-sig-names-to-sigs-name = Module(id,id,id,map(sig-names-to-sigs-name);flatten-list)
+	
+	// @type SigDecl -> [SigDecl]
+	sig-names-to-sigs-name: sig@SigDecl(a, name*, b, c, d) -> s*
+		with
+			s* := <map(sig-name(|sig))>name*
+	
+	// @type (|SigDecl) string -> SigDecl
+	sig-name(|sig) : name -> sig''
+		with
+			!sig  ;? SigDecl(a, _,      b, c, d);
+			sig'  := SigDecl(a, [name], b, c, d);
+			sig'' := <custom-origin(|sig)>sig'
+	
