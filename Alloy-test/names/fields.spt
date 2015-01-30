@@ -25,7 +25,7 @@ test Resolve ref to field [[
 	}
 ]] resolve #2 to #1
 
-test Resolve ref to field in super sig [[
+test Resolve ref to field in super type [[
 sig A {}
 sig B {[[a]]:A}
 sig C extends B{}
@@ -35,3 +35,12 @@ pred show (b:C){
 }
 ]] resolve #2 to #1
 
+test No error on same field in different signatures [[
+	sig A {a:A}
+	sig B {a:A}
+]] 0 errors
+
+test Error on field overriding in subtype [[
+	sig A {a:A}
+	sig B extends A {[[a]]:A}
+]] 1 error

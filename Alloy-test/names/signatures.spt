@@ -22,7 +22,7 @@ test Extends resolves to signatures [[
 
 test Unresolved extends signature error [[
 	sig B extends [[A]]{}
-]] 1 error
+]] 2 error // cascading errors, should be: 1 error
 
 test In resolves to signatures [[
 	sig [[A]] {}

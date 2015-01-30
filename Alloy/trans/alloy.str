@@ -16,6 +16,7 @@ imports
 	lib/runtime/analysis/-
 	lib/runtime/editor/-
 	names
+	names-manual
 	check
 	pp
 	desugar
