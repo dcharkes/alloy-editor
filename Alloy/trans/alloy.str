@@ -24,6 +24,7 @@ imports
 	types-manual
 	trans/lib/nabl-ext
 	api/_runtime
+	api/_generated
 
 rules // Analysis
 	
@@ -47,8 +48,10 @@ rules // Editor services
 	// Returns "hover help" information for a particular node in the editor.
 	// For references, this rule is invoked using the resolved term.
 	editor-hover:
-		(target, position, ast, path, project-path) ->
-			<get-editor-properties(pp-partial-Alloy-string |<language>, project-path);properties-to-html>target
+		x@(target, position, ast, path, project-path) -> result
+		with
+			target' := <editor-service-target>x;
+			result :=	<get-editor-properties(pp-partial-Alloy-string |<language>, project-path);properties-to-html>target'
 
 	// Gathers the outline nodes for the outline view.
 	editor-outline:
@@ -75,6 +78,37 @@ rules // Editor services
     	ext      := <get-extension> path;
       filename := <guarantee-extension(|$[pp.[ext]])> path;
       result   := <pp-debug> selected
+
+   
+rules // target of editor services
+
+	editor-service-target: (target, position, ast, path, project-path) -> target''
+		with
+			if Some(a) := target then
+				target' := a
+			else
+				target' := target
+			end;
+			if <hover-parent-for>target' then
+				if [_] := position then // if first level child parent-at-position fails
+					target'' := ast
+				else
+					target'' := <_parent-at-position(|position)>ast
+				end
+			else
+				target'' := target'
+			end
+
+	hover-parent-for: a -> a // for constructors with no children hover parent
+		where
+			[] := <get-arguments>a;
+			<not(is-string)>a;
+			<not(?False())>a;
+			<not(?True())>a
+	hover-parent-for: a -> a // for strings, hover parent if it is not a reference
+		where
+			<is-string>a;
+			None() := <_ref-prop>a
 
 rules // Debugging
 	
