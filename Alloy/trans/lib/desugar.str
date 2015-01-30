@@ -1,0 +1,30 @@
+module trans/lib/desugar
+
+imports
+	
+	trans/lib/origin
+
+rules // normalize comma separated definitions. For example Class X,Y{} -> Class X{} Class Y{}. 
+
+	//@type (A->B, (|B)A->A, B->C, (|C)B->B) A -> A
+	normalize-comma-separated(parent-get, parent-set, term-get, term-set) : t -> t''
+		where
+			def* := <parent-get>t
+		with
+			if !def*;?[] then
+				t'' := t
+			else
+				def'* := <map(normalize-comma-separated(term-get, term-set) <+ ?a;![a]);flatten-list>def*;
+				t'    := <parent-set(!def'*)>t;
+				t''   := <custom-origin(|t)>t'
+			end
+	
+	//@type (B->C, (|C)B->B) B -> B
+	normalize-comma-separated(term-get, term-set): t -> t*
+		where
+			name* := <term-get>t
+		with
+			t* := <map(normalize-comma-seperated(term-set|t))>name*
+	
+	//@type ((|C)B->B | C) B -> B
+	normalize-comma-seperated(term-set|t): name -> <term-set(![name])>t

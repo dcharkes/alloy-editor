@@ -1,0 +1,40 @@
+module trans/api/alloy
+
+imports // constructors
+	
+	src-gen/signatures/Alloy-sig
+	
+imports
+	
+	trans/lib/origin
+	
+rules // Module
+	
+	module-get-paragraphs     = ?Module(_,  _,  _,  <id>)
+	module-set-paragraphs(ps) =  Module(id, id, id, ps  )
+
+rules // SigDecl
+
+	sigdecl-get-names      = ?SigDecl(_,  <id>, _,  _,  _ )
+	sigdecl-set-names(ns)  =  SigDecl(id, ns,   id, id, id)
+
+	sigdecl-get-fields     = ?SigDecl(_,  _,  _,  <id>, _ )
+	sigdecl-set-fields(fs) =  SigDecl(id, id, id, fs,   id)
+
+rules // FieldDecl
+	
+	fielddecl-get-names     = ?FieldDecl(_,  _, <id>, _,  _ )
+	fielddecl-set-names(ns) =  FieldDecl(id, id, ns,  id, id)
+
+rules // PredDecl
+	
+	preddecl-get-funparams     = ?PredDecl(_,  _,  _,  Some(<id>), _ )
+	preddecl-set-funparams(fs) =  PredDecl(id, id, id, Some(fs),   id)
+
+rules // FunParam
+	
+	funparam-get-names     = ?FunParam(            VarDecl(_,  _,  <id>, _,  _ ))
+	funparam-set-names(ns) =  FunParam(keep-origin(VarDecl(id, id, ns,   id, id)))
+
+rules
+	
