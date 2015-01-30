@@ -2,6 +2,6 @@ module trans/types-manual
 
 signature constructors
 	
-	Union : Term -> Union
-	Rel   : Term -> Rel
-	
+	Union   : Term -> Union
+	Rel     : Term -> Rel
+	Boolean : Term

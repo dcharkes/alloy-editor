@@ -48,9 +48,10 @@ context-free syntax
 	
 	Paragraph.PredDecl = <
 		<Private?>pred <RefDot?><Name> <FunParams?> {
-			<{Expr "\n"}*>
+			<{PredExpr "\n"}*>
 		}
 	>
+	PredExpr.PredExpr = Expr
 	
 	Paragraph.RunDecl = <
 		<NameColon?> run <NameOrBlock> <Scope>

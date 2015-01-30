@@ -1,0 +1,25 @@
+module types-predicate-body
+
+language Alloy
+
+setup Common [[
+	module test
+]]
+
+test No error on predicate body boolean [[
+	sig A {}
+	sig B {a:A}
+	
+	pred show (b:B){
+		#b.a>1
+	}
+]] 0 errors
+
+test Error on predicate body not boolean [[
+	sig A {}
+	sig B {a:A}
+	
+	pred show (b:B){
+		[[#b.a]]
+	}
+]] 1 error
