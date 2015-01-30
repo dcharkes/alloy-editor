@@ -14,7 +14,7 @@ namespaces
 	
 binding rules
 
-	Module(m,b,c,d):                         defines Module m                                       scopes Signature
+	Module(m,b,c,d):                         defines Module m                                       scopes Signature, Predicate
 
 	SigDecl(a, [s], None(),           c, d): defines Signature s of type s                          scopes Field
 	SigDecl(a, [s], Some(Extends(e)), c, d): defines Signature s of type s                          scopes Field
@@ -33,3 +33,6 @@ binding rules
 
 	FieldRef(e, f):
 		refers to Field f in Signature s where e has type s
+
+	RunDecl(a, d, b):
+		refers to Predicate d

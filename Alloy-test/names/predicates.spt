@@ -1,0 +1,29 @@
+module names-fields
+
+language Alloy
+
+setup Common [[
+	module test
+]]
+
+test Duplicate predicate error [[
+sig A {}
+sig B {a,a2:A}
+
+pred [[show]] (b:B){
+	#b.a>1
+}
+pred [[show]] (b:B){
+	#b.a>1
+}
+]] 2 errors
+
+test Resolve predicate ref [[
+sig A {}
+sig B {a,a2:A}
+
+pred [[show]] (b:B){
+	#b.a>1
+}
+run [[show]] for 3
+]] resolve #2 to #1
