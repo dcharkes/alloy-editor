@@ -7,19 +7,13 @@ imports // constructors
 	
 imports // functions
 	
-	trans/api/_runtime
+	trans/lib/nabl-ext
 	
 rules
 	
-	
+	override-error= ![
+		NablNsField()
+	]
+
 rules
-	
-	nabl-constraint(|ctx) : FieldDecl(_, _, [name], _, _) -> <fail>
-		with
-			name-import := <_nabl-lookup-lexical-import(|ctx)>name;
-			parent      := <_nabl-create-suburi(|ctx, NablNsSignature())>name-import;
-			<_task-create-error-on-success(|ctx, name-import, ["Overriding is not allowed, Field ", name, " is already defined in ", parent])>name
-	
-rules
-	
 	
