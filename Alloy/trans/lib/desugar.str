@@ -14,7 +14,7 @@ rules // normalize comma separated definitions. For example Class X,Y{} -> Class
 			if !def*;?[] then
 				t'' := t
 			else
-				def'* := <map(normalize-comma-separated(term-get, term-set) <+ ?a;![a]);flatten-list>def*;
+				def'* := <map(normalize-comma-separated(term-get, term-set));flatten-list>def*;
 				t'    := <parent-set(!def'*)>t;
 				t''   := <custom-origin(|t)>t'
 			end
@@ -25,6 +25,10 @@ rules // normalize comma separated definitions. For example Class X,Y{} -> Class
 			name* := <term-get>t
 		with
 			t* := <map(normalize-comma-seperated(term-set|t))>name*
+			
+	normalize-comma-separated(term-get, term-set): t -> [t]
+		where
+			not(term-get)
 	
 	//@type ((|C)B->B | C) B -> B
 	normalize-comma-seperated(term-set|t): name -> <term-set(![name])>t
