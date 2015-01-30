@@ -77,7 +77,7 @@ context-free syntax
 	SigQual.Abstract = <abstract >
 	SigQual.Lone     = <lone >
 	SigQual.One      = <one >
-	SigQual.Some     = <some >
+	SigQual.Some2    = <some >
 	SigQual.Private  = <private >
 	
 	SigExt.Extends    = <extends <Ref>>
@@ -92,7 +92,7 @@ context-free syntax
 	
 	TypeScope.TypeScope = <<Exactly?> <INT> <NameIntOrSeq>>
 	
-	NameIntOrSeq = Name
+	NameIntOrSeq.Ref = Name
 	NameIntOrSeq.Int = <int>
 	NameIntOrSeq.Seq = <seq>
 	
@@ -112,7 +112,7 @@ context-free syntax
 	Expr.Not        = <!<Expr>>
 	Expr.Not        = <not <Expr>>
 	Expr.No         = <no <Expr>>
-	Expr.Some       = <some <Expr>>
+	Expr.Some2      = <some <Expr>>
 	Expr.Lone       = <lone <Expr>>
 	Expr.One        = <one <Expr>>
 	Expr.Set        = <set <Expr>>
@@ -170,14 +170,14 @@ context-free syntax
 	Not.Not = <!>
 	Not.Not = <not>
 
-	Mult.Some = <some >
+	Mult.Some2= <some >
 	Mult.One  = <one >
 	Mult.Lone = <lone >
 	Mult.Set  = <set >
 
 	Quantifier.All  = <all>
 	Quantifier.No   = <no>
-	Quantifier.Some = <some>
+	Quantifier.Some2= <some>
 	Quantifier.Lone = <lone>
 	Quantifier.One  = <one>
 	Quantifier.Sum  = <sum>
@@ -249,7 +249,7 @@ context-free priorities
 	} >
 	{
 		Expr.No
-		Expr.Some
+		Expr.Some2
 		Expr.Lone
 		Expr.One
 		Expr.Set
