@@ -24,3 +24,14 @@ test Resolve ref to field [[
 		#b.[[a]]>1
 	}
 ]] resolve #2 to #1
+
+test Resolve ref to field in super sig [[
+sig A {}
+sig B {[[a]]:A}
+sig C extends B{}
+
+pred show (b:C){
+	#b.[[a]]>1
+}
+]] resolve #2 to #1
+

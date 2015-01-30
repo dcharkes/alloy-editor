@@ -24,7 +24,12 @@ binding rules
 
 	FieldDecl(a, b, [f], c, e):              defines Field     f of type e-ty where e has type e-ty
 	VarDecl  (a, b, [v], c, e):              defines Variable  v of type e-ty where e has type e-ty
-	
+
+binding rules
+
+	Extends(Ref(c)):
+		imports Field, imported Field from Signature c
+
 binding rules
 
 	Ref(e):
