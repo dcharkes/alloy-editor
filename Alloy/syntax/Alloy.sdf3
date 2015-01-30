@@ -62,7 +62,7 @@ context-free syntax
 	
 	Paragraph.SigDecl = <
 		<{SigQual ""}*> sig <{Name ","}*> <SigExt?> {
-			<{Decl ","}*>
+			<{FieldDecl ","}*>
 		} <Block?>
 	>
 	
@@ -103,12 +103,12 @@ context-free syntax
 	
 	FunParams = <(<{FunParam ","}*>)>
 	FunParams = <[<{FunParam ","}*>]>
-	FunParam.FunParam = Decl
+	FunParam.FunParam = VarDecl
 	
 	RefDot.RefDot = <<Ref>.>
 	
 	Expr.Let        = <let <{LetDecl ","}+> <BlockOrBar>>
-	Expr.Quant      = <<Quantifier> <{Decl ","}+> <BlockOrBar>>
+	Expr.Quant      = <<Quantifier> <{VarDecl ","}+> <BlockOrBar>>
 	Expr.Not        = <!<Expr>>
 	Expr.Not        = <not <Expr>>
 	Expr.No         = <no <Expr>>
@@ -135,7 +135,8 @@ context-free syntax
 	Expr.Override   = <<Expr> ++ <Expr>>                  {left}
 	Expr.DomainRestr= [[Expr] <: [Expr]]                  {left}
 	Expr.RangeRestr = [[Expr] :> [Expr]]                  {left}
-	Expr.Join       = <<Expr> . <Expr>>                   {left}
+	Expr.FieldRef   = <<Expr> . <Name>>                   {left,prefer}
+	Expr.Join       = <<Expr> . <Expr>>                   {left,avoid}
 	Expr.X          = [[Expr] << [Expr]]                  {left}
 	Expr.Y          = [[Expr] >> [Expr]]                  {left}
 	Expr.Z          = [[Expr] >>> [Expr]]                 {left}
@@ -159,9 +160,10 @@ context-free syntax
 	Expr.Ref        = <<Name>>
 	Expr.Ref        = <@<Name>>
 	Expr            = Block
-	Expr.SetCompr   = <{ <{Decl ","}+> <BlockOrBar> }>
+	Expr.SetCompr   = <{ <{VarDecl ","}+> <BlockOrBar> }>
 
-	Decl.Decl = <<Private?><Disj?><{Name ","}+> : <Disj?><Expr>>
+	FieldDecl.FieldDecl = <<Private?><Disj?><{Name ","}+> : <Disj?><Expr>>
+	VarDecl.VarDecl     = <<Private?><Disj?><{Name ","}+> : <Disj?><Expr>>
 
 	LetDecl.LetDecl = <<Name> = <Expr>>
 
@@ -211,7 +213,8 @@ context-free priorities
 		Expr.ReflTrans
 		Expr.Transitive
 	} >
-	{
+	{ left:
+		Expr.FieldRef
 		Expr.Join
 	} >
 	{

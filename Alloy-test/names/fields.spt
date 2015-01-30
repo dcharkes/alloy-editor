@@ -1,0 +1,26 @@
+module names-fields
+
+language Alloy
+
+setup Common [[
+	module test
+]]
+
+test Duplicate field error [[
+	sig A {}
+	sig B {[[a]]:A, [[a]]:A}
+]] 2 errors
+
+test Duplicate field error 2 [[
+	sig A {}
+	sig B {[[a]], [[a]]:A}
+]] 2 errors
+
+test Resolve ref to field [[
+	sig A {}
+	sig B {[[a]]:A}
+	
+	pred show (b:B){
+		#b.[[a]]>1
+	}
+]] resolve #2 to #1

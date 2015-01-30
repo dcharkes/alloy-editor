@@ -1,0 +1,34 @@
+module names-variables
+
+language Alloy
+
+setup Common [[
+	module test
+]]
+
+test Duplicate pred param error [[
+	sig A {}
+	sig B {a:A}
+	
+	pred show ([[b]]:B, [[b]]:B){
+		#b.a>1
+	}
+]] 2 errors
+
+test Duplicate pred param error 2 [[
+	sig A {}
+	sig B {a:A}
+	
+	pred show (disj [[b]], [[b]]:B){
+		#b.a>1
+	}
+]] 2 errors
+
+test Resolve to pred param [[
+	sig A {}
+	sig B {a:A}
+	
+	pred show ([[b]]:B){
+		#[[b]].a>1
+	}
+]] resolve #2 to #1
