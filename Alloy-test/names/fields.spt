@@ -25,6 +25,16 @@ test Resolve ref to field [[
 	}
 ]] resolve #2 to #1
 
+test Resolve ref to field twice [[
+	sig A {}
+	sig B {[[a]]:A}
+	sig C {b:B}
+	
+	pred show (c:C){
+		#c.b.[[a]]>1
+	}
+]] resolve #2 to #1
+
 test Resolve ref to field in super type [[
 sig A {}
 sig B {[[a]]:A}

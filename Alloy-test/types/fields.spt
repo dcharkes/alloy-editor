@@ -1,0 +1,16 @@
+module types-fields
+
+language Alloy
+
+setup Common [[
+	module test
+]]
+
+test Type of fieldref [[
+	sig A {}
+	sig B {a:A}
+	
+	pred show (b:B){
+		#[[b.a]]>1
+	}
+]]  run get-type to "A"{_}

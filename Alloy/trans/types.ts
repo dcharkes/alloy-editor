@@ -3,11 +3,15 @@ module trans/types
 imports
 
 	src-gen/signatures/Alloy-sig
+	types-manual
 
 type rules // references
 
 	Ref(e) : ty
 	where definition of e : ty
+
+	FieldRef(e, f): f-ty
+	where definition of f : f-ty
 
 relations // subtype
 
