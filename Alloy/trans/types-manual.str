@@ -2,6 +2,20 @@ module trans/types-manual
 
 signature constructors
 	
-	Union   : Term -> Union
-	Rel     : Term -> Rel
+	// Union   : Term -> Union
+	Arrow : Term * Term -> Rel
 	Boolean : Term
+	Null : Term
+
+rules
+	
+  type-func-relation-remove-right-type(|ctx) : t -> <new-task(|ctx)> Rewrite("remove-right-type", t)
+    	
+  task-rewrite : ("remove-right-type", t) -> <remove-right-type>t
+
+	remove-right-type: t1           -> Null() where not(?Arrow(_,_))
+	remove-right-type: Arrow(t1,t2) -> t1     where <remove-right-type>t2 => Null()
+	remove-right-type: Arrow(t1,t2) -> Arrow(t1, t2') with <remove-right-type>t2 => t2' 
+
+rules
+	
