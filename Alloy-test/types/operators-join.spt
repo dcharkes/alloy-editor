@@ -1,0 +1,32 @@
+module types-operators-join
+
+language Alloy
+
+setup Common [[
+	module test
+]]
+
+test Type of join [[
+	sig Name, Addr { }
+	
+	sig Book {
+		addr: Name -> lone Addr
+	}
+	
+	pred show [b: Book] {
+		# [[Name . (b . addr)]] > 1
+	}
+]]  run get-type to "Addr"{_}
+
+
+test Type of join 2 [[
+	sig Name, Addr { }
+	
+	sig Book {
+		addr: Name -> lone Addr
+	}
+	
+	pred show [b: Book] {
+		# [[(b . addr) . (Addr)]] > 1
+	}
+]]  run get-type to "Name"{_}
