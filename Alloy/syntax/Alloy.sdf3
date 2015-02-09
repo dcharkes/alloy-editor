@@ -83,7 +83,7 @@ context-free syntax
 	
 	SigExt.Extends    = <extends <Ref>>
 	SigExt.In         = <in <RefUnion>>
-	RefUnion.RefUnion = <<RefUnion> + <RefUnion>>
+	RefUnion.RefUnion = <<RefUnion> + <RefUnion>> {left}
 	RefUnion          = Ref
 	
 	Scope.Scope = <for <INT> <Expect?>>

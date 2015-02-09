@@ -54,3 +54,24 @@ test Error on field overriding in subtype [[
 	sig A {a:A}
 	sig B extends A {[[a]]:A}
 ]] 1 error
+
+test (TODO) Resolve ref to field in sub type [[
+	sig A {}
+	sig B {}
+	sig C extends B{[[a]]:A}
+	
+	pred show (b:B){
+		#b.[[a]]>1
+	}
+]] resolve #2 to #1 //@see page 113 of book
+
+test (TODO) Error on ref to two possible fields in subtypes [[
+	sig A {}
+	sig B extends A {a:A}
+	sig C extends A {a:A}
+	
+	pred show (x:A) {
+		#x.[[a]]>0
+	}
+]] 1 error //@see p. 115 "If more than one field is possible, an error is reported"
+

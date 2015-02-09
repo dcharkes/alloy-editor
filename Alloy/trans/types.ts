@@ -90,7 +90,8 @@ type rules // union types
 +	Union(a, b): ty
 	where a : a-ty
 	  and b : b-ty
-	  and Union(a-ty, b-ty) => ty
+	  // and Union(a-ty, b-ty) => ty
+	  and a-ty union b-ty => ty
 
 type rules // relation types
 

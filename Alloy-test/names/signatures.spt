@@ -32,3 +32,15 @@ test In resolves to signatures [[
 test Unresolved in signature error [[
 	sig B in [[A]]{}
 ]] 1 error
+
+test (TODO) Error on extending subset signature [[
+	sig A {}
+	sig B in A {}
+	sig C extends [[B]] {}
+]] 1 error // cannot extend B because B is a subset signature
+
+test No error on subset signature on subset signature [[
+	sig A {}
+	sig B in A {}
+	sig C in B {}
+]] 0 errors
